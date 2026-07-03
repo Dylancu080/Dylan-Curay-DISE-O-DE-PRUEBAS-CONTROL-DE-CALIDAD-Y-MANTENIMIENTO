@@ -1,0 +1,22 @@
+{
+  "name": "pruebas",
+  "version": "1.0.0",
+  "description": "Testing Avanzado - Módulo 1 y Framework Híbrido",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine",
+    "test:advanced": "jasmine spec/busquedaBinaria.advanced.spec.js",
+    "test:all": "jasmine",
+    "mutation": "stryker run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@stryker-mutator/core": "^8.0.0",
+    "@stryker-mutator/jasmine-runner": "^8.0.0",
+    "fast-check": "^3.19.0",
+    "jasmine": "^6.2.0"
+  }
+}

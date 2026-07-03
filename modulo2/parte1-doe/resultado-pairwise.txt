@@ -1,0 +1,35 @@
+Resultado de Pairwise Testing - 27 casos de prueba
+Reduccion desde 1125 casos exhaustivos (5 x 5 x 5 x 3 x 3)
+Reduccion del esfuerzo: 97.6%
+
+Caso | Tipo_Suscripcion | Metodo_Pago        | Navegador | Sistema_Operativo | Idioma
+-----|------------------|--------------------|-----------|-------------------|----------
+1    | Pro              | PayPal             | Safari    | macOS             | Ingles
+2    | Gratuito         | Stripe_Link        | Firefox   | Windows           | Español
+3    | Enterprise       | Tarjeta_Credito    | Chrome    | Linux             | Portugues
+4    | Educativo        | Cripto             | Edge      | Windows           | Español
+5    | Basico           | Transferencia      | Brave     | macOS             | Ingles
+6    | Gratuito         | PayPal             | Chrome    | Linux             | Portugues
+7    | Pro              | Tarjeta_Credito    | Firefox   | Windows           | Español
+8    | Enterprise       | Stripe_Link        | Safari    | macOS             | Ingles
+9    | Basico           | Cripto             | Edge      | Linux             | Portugues
+10   | Educativo        | Transferencia      | Brave     | Windows           | Español
+11   | Pro              | Cripto             | Edge      | macOS             | Portugues
+12   | Gratuito         | Tarjeta_Credito    | Brave     | Linux             | Ingles
+13   | Enterprise       | Transferencia      | Firefox   | Windows           | Portugues
+14   | Basico           | PayPal             | Chrome    | macOS             | Español
+15   | Educativo        | Stripe_Link        | Safari    | Linux             | Ingles
+16   | Pro              | Transferencia      | Brave     | Windows           | Portugues
+17   | Gratuito         | Cripto             | Safari    | macOS             | Español
+18   | Enterprise       | PayPal             | Edge      | Linux             | Ingles
+19   | Basico           | Stripe_Link        | Firefox   | Windows           | Portugues
+20   | Educativo        | Tarjeta_Credito    | Chrome    | macOS             | Español
+21   | Pro              | Stripe_Link        | Edge      | Linux             | Español
+22   | Gratuito         | Transferencia      | Chrome    | macOS             | Portugues
+23   | Enterprise       | Cripto             | Brave     | Windows           | Ingles
+24   | Basico           | Tarjeta_Credito    | Safari    | Linux             | Español
+25   | Educativo        | PayPal             | Firefox   | macOS             | Portugues
+26   | Pro              | PayPal             | Chrome    | Linux             | Español
+27   | Basico           | Cripto             | Safari    | Windows           | Ingles
+
+Nota: Si tienes PICT instalado, ejecuta: pict model.txt

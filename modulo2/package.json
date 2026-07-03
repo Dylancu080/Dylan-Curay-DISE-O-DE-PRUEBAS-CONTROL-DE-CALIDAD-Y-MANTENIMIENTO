@@ -1,0 +1,23 @@
+{
+  "name": "modulo2-calidad-software",
+  "version": "1.0.0",
+  "description": "Modulo 2 - DOE, Jest Coverage y ESLint",
+  "scripts": {
+    "test:coverage": "jest --coverage",
+    "test:baja-cobertura": "jest parte2-cobertura/binarySearch.baja-cobertura.test.js --coverage",
+    "lint": "eslint parte2-eslint/binarySearchBad.js --config parte2-eslint/.eslintrc.json"
+  },
+  "jest": {
+    "testMatch": [
+      "**/parte2-cobertura/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "parte2-cobertura/binarySearch.js"
+    ],
+    "coverageDirectory": "coverage"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "jest": "^29.7.0"
+  }
+}
