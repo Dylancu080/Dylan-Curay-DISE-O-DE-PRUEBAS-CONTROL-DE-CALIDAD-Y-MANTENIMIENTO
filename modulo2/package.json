@@ -1,7 +1,7 @@
 {
-  "name": "modulo2-calidad-software",
+  "name": "modulo2",
   "version": "1.0.0",
-  "description": "Modulo 2 - DOE, Jest Coverage y ESLint",
+  "description": "DOE, Jest coverage y ESLint",
   "scripts": {
     "test:coverage": "jest --coverage",
     "test:baja-cobertura": "jest parte2-cobertura/binarySearch.baja-cobertura.test.js --coverage",

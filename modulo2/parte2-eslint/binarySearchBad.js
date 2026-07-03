@@ -1,12 +1,12 @@
 function binarySearchBad(arr, target) {
     let left = 0;
     let right = arr.length - 1;
-    let iteraciones = 0; // Anomalia 1: variable no usada
+    let iteraciones = 0;
 
     while (left <= right) {
-        mid = Math.floor((left + right) / 2); // Anomalia 2: variable no declarada
+        mid = Math.floor((left + right) / 2);
 
-        if (arr[mid] == target) { // Anomalia 3: deberia ser ===
+        if (arr[mid] == target) {
             return mid;
         } else if (arr[mid] < target) {
             left = mid + 1;

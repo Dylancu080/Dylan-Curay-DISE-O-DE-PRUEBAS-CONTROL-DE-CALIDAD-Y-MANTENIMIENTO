@@ -1,6 +1,3 @@
-# Modulo Checkout y Despliegue - Sistema SaaS
-# Factores y niveles para Pairwise Testing (PICT)
-
 Tipo_Suscripcion: Gratuito, Basico, Pro, Enterprise, Educativo
 Metodo_Pago: Tarjeta_Credito, PayPal, Cripto, Transferencia, Stripe_Link
 Navegador: Chrome, Firefox, Safari, Edge, Brave

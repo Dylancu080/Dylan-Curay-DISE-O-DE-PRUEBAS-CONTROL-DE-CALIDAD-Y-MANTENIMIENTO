@@ -1,28 +1,13 @@
-# Dependencias Node.js
 node_modules/
 package-lock.json
-
-# Cobertura Jest
 modulo2/coverage/
-
-# Reportes Stryker
 reports/
-
-# Reporte ML Python
 modulo3-ml/reporte_riesgo.json
-
-# Caché Python
 __pycache__/
 *.pyc
 *.pyo
-
-# Logs npm
 *.log
 npm-debug.log*
-
-# Variables de entorno
 .env
-
-# Sistema operativo
 .DS_Store
 Thumbs.db

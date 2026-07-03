@@ -1,20 +1,3 @@
-"""
-Orquestador Combinatorio con Machine Learning
-==============================================
-Parte 3 del proyecto de Testing Avanzado.
-
-Flujo:
-  1. Genera todas las combinaciones de factores (itertools.product).
-  2. Crea un dataset simulado de ejecuciones previas con etiquetas
-     de riesgo (0 = éxito, 1 = fallo).
-  3. Entrena un RandomForestClassifier de scikit-learn.
-  4. Predice el nivel de riesgo de cada nueva combinación.
-  5. Genera un reporte ordenado por riesgo descendente.
-
-Dependencias:
-    pip install scikit-learn pandas numpy
-"""
-
 import itertools
 import random
 import json
@@ -27,43 +10,27 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn.preprocessing import LabelEncoder
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 1. DEFINICIÓN DE FACTORES
-# ─────────────────────────────────────────────────────────────────────────────
-
 FACTORES = {
-    "Navegador":          ["Chrome", "Firefox", "Safari", "Edge", "Brave"],
-    "Sistema_Operativo":  ["Windows", "macOS", "Linux"],
-    "Tipo_Usuario":       ["Admin", "Guest", "Premium", "Free"],
-    "Tipo_Suscripcion":   ["Gratuito", "Basico", "Pro", "Enterprise"],
-    "Metodo_Pago":        ["Tarjeta_Credito", "PayPal", "Cripto", "Transferencia"],
+    "Navegador": ["Chrome", "Firefox", "Safari", "Edge", "Brave"],
+    "Sistema_Operativo": ["Windows", "macOS", "Linux"],
+    "Tipo_Usuario": ["Admin", "Guest", "Premium", "Free"],
+    "Tipo_Suscripcion": ["Gratuito", "Basico", "Pro", "Enterprise"],
+    "Metodo_Pago": ["Tarjeta_Credito", "PayPal", "Cripto", "Transferencia"],
 }
 
 NOMBRES_COLUMNAS = list(FACTORES.keys())
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 2. GENERACIÓN DE COMBINACIONES (itertools.product)
-# ─────────────────────────────────────────────────────────────────────────────
 
 def generar_combinaciones(factores: dict) -> pd.DataFrame:
-    """Genera el producto cartesiano de todos los factores."""
     valores = list(factores.values())
     combinaciones = list(itertools.product(*valores))
     df = pd.DataFrame(combinaciones, columns=list(factores.keys()))
     print(f"[1/4] Combinaciones totales generadas: {len(df)}")
     return df
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 3. DATASET SIMULADO DE EJECUCIONES PREVIAS
-# Reglas heurísticas de riesgo para que el modelo aprenda patrones reales:
-#   - Cripto + Enterprise → riesgo alto
-#   - Safari + macOS      → riesgo moderado
-#   - Admin + Pro         → riesgo bajo
-# ─────────────────────────────────────────────────────────────────────────────
 
 def calcular_riesgo_base(row: pd.Series) -> float:
-    """Calcula una probabilidad de fallo (0-1) basada en reglas heurísticas."""
-    prob = 0.10  # base
+    prob = 0.10
 
     if row["Metodo_Pago"] == "Cripto":
         prob += 0.25
@@ -82,11 +49,8 @@ def calcular_riesgo_base(row: pd.Series) -> float:
 
     return min(max(prob, 0.02), 0.98)
 
+
 def generar_dataset_historico(df_combinaciones: pd.DataFrame, n_muestras: int = 800) -> pd.DataFrame:
-    """
-    Muestrea combinaciones con reemplazo y asigna etiquetas de riesgo
-    introduciendo ruido para simular ejecuciones históricas reales.
-    """
     random.seed(42)
     np.random.seed(42)
 
@@ -101,23 +65,15 @@ def generar_dataset_historico(df_combinaciones: pd.DataFrame, n_muestras: int = 
 
     df_hist["resultado"] = etiquetas
     fallos = sum(etiquetas)
-    print(f"[2/4] Dataset histórico: {n_muestras} muestras | "
-          f"{fallos} fallos ({fallos/n_muestras*100:.1f}%) | "
-          f"{n_muestras - fallos} éxitos")
+    print(
+        f"[2/4] Dataset historico: {n_muestras} muestras | "
+        f"{fallos} fallos ({fallos / n_muestras * 100:.1f}%) | "
+        f"{n_muestras - fallos} exitos"
+    )
     return df_hist
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 4. ENTRENAMIENTO DEL MODELO
-# ─────────────────────────────────────────────────────────────────────────────
 
 def entrenar_modelo(df_hist: pd.DataFrame):
-    """
-    Codifica variables categóricas con LabelEncoder,
-    entrena un RandomForestClassifier y reporta métricas.
-
-    Returns:
-        model, encoders, feature_names
-    """
     encoders = {}
     df_encoded = df_hist.copy()
 
@@ -144,9 +100,9 @@ def entrenar_modelo(df_hist: pd.DataFrame):
     y_pred = model.predict(X_test)
     acc = accuracy_score(y_test, y_pred)
 
-    print(f"\n[3/4] Modelo entrenado — Accuracy en test: {acc*100:.1f}%")
-    print("\nReporte de clasificación:")
-    print(classification_report(y_test, y_pred, target_names=["Éxito (0)", "Fallo (1)"]))
+    print(f"\n[3/4] Modelo entrenado - Accuracy en test: {acc * 100:.1f}%")
+    print("\nReporte de clasificacion:")
+    print(classification_report(y_test, y_pred, target_names=["Exito (0)", "Fallo (1)"]))
 
     importancias = sorted(
         zip(NOMBRES_COLUMNAS, model.feature_importances_),
@@ -155,38 +111,28 @@ def entrenar_modelo(df_hist: pd.DataFrame):
     )
     print("Importancia de factores:")
     for nombre, imp in importancias:
-        barra = "█" * int(imp * 40)
-        print(f"  {nombre:25s} {barra} {imp*100:.1f}%")
+        barra = "#" * int(imp * 40)
+        print(f"  {nombre:25s} {barra} {imp * 100:.1f}%")
 
     return model, encoders
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 5. PREDICCIÓN Y REPORTE
-# ─────────────────────────────────────────────────────────────────────────────
 
 NIVELES_RIESGO = [
-    (0.75, "🔴 CRÍTICO"),
-    (0.50, "🟠 ALTO"),
-    (0.30, "🟡 MEDIO"),
-    (0.00, "🟢 BAJO"),
+    (0.75, "CRITICO"),
+    (0.50, "ALTO"),
+    (0.30, "MEDIO"),
+    (0.00, "BAJO"),
 ]
+
 
 def nivel_riesgo(prob: float) -> str:
     for umbral, etiqueta in NIVELES_RIESGO:
         if prob >= umbral:
             return etiqueta
-    return "🟢 BAJO"
+    return "BAJO"
 
-def predecir_y_reportar(
-    model,
-    encoders: dict,
-    df_combinaciones: pd.DataFrame,
-    top_n: int = 30,
-):
-    """
-    Predice la probabilidad de fallo para cada combinación y genera
-    un reporte ordenado de mayor a menor riesgo.
-    """
+
+def predecir_y_reportar(model, encoders: dict, df_combinaciones: pd.DataFrame, top_n: int = 30):
     df_pred = df_combinaciones.copy()
 
     for col in NOMBRES_COLUMNAS:
@@ -212,40 +158,38 @@ def predecir_y_reportar(
         f"{'Suscripcion':12} | {'Pago':17} | {'Prob%':6} | Nivel"
     )
     print(header)
-    print("─" * len(header))
+    print("-" * len(header))
 
     for i, row in top.iterrows():
         print(
-            f"{i+1:>3} | {row['Navegador']:10} | {row['Sistema_Operativo']:8} | "
+            f"{i + 1:>3} | {row['Navegador']:10} | {row['Sistema_Operativo']:8} | "
             f"{row['Tipo_Usuario']:10} | {row['Tipo_Suscripcion']:12} | "
-            f"{row['Metodo_Pago']:17} | {row['prob_fallo']*100:5.1f}% | {row['nivel_riesgo']}"
+            f"{row['Metodo_Pago']:17} | {row['prob_fallo'] * 100:5.1f}% | {row['nivel_riesgo']}"
         )
 
-    # Guardar reporte JSON
     reporte = {
         "generado_en": datetime.now().isoformat(),
         "total_combinaciones": len(df_combinaciones),
-        "top_riesgo": top[NOMBRES_COLUMNAS + ["prob_fallo", "nivel_riesgo"]].to_dict(orient="records"),
+        "top_riesgo": top[NOMBRES_COLUMNAS + ["prob_fallo", "nivel_riesgo"]].to_dict(
+            orient="records"
+        ),
     }
     with open("reporte_riesgo.json", "w", encoding="utf-8") as f:
         json.dump(reporte, f, ensure_ascii=False, indent=2)
 
-    print(f"\n  Reporte guardado en: reporte_riesgo.json")
+    print("\n  Reporte guardado en: reporte_riesgo.json")
     return df_pred
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PUNTO DE ENTRADA
-# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("  ORQUESTADOR COMBINATORIO + ML — Testing Avanzado")
+    print("  ORQUESTADOR COMBINATORIO + ML")
     print("=" * 60 + "\n")
 
     df_combinaciones = generar_combinaciones(FACTORES)
-    df_historico     = generar_dataset_historico(df_combinaciones, n_muestras=1000)
-    model, encoders  = entrenar_modelo(df_historico)
-    df_resultado     = predecir_y_reportar(model, encoders, df_combinaciones, top_n=30)
+    df_historico = generar_dataset_historico(df_combinaciones, n_muestras=1000)
+    model, encoders = entrenar_modelo(df_historico)
+    predecir_y_reportar(model, encoders, df_combinaciones, top_n=30)
 
-    print("\n  ✔ Ejecución completada exitosamente.")
+    print("\n  Ejecucion completada.")
     print("=" * 60)

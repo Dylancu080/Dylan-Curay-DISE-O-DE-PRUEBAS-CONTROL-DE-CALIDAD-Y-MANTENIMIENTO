@@ -1,4 +1,3 @@
-// Implementación del algoritmo de Búsqueda Binaria
 function busquedaBinaria(array, objetivo) {
     let inicio = 0;
     let fin = array.length - 1;
@@ -7,14 +6,14 @@ function busquedaBinaria(array, objetivo) {
         let medio = Math.floor((inicio + fin) / 2);
 
         if (array[medio] === objetivo) {
-            return medio; // Elemento encontrado
+            return medio;
         } else if (array[medio] < objetivo) {
-            inicio = medio + 1; // Buscar en la mitad derecha
+            inicio = medio + 1;
         } else {
-            fin = medio - 1; // Buscar en la mitad izquierda
+            fin = medio - 1;
         }
     }
-    return -1; // Elemento no encontrado
+    return -1;
 }
 
 module.exports = busquedaBinaria;

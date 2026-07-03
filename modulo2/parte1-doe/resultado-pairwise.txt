@@ -31,5 +31,3 @@ Caso | Tipo_Suscripcion | Metodo_Pago        | Navegador | Sistema_Operativo | I
 25   | Educativo        | PayPal             | Firefox   | macOS             | Portugues
 26   | Pro              | PayPal             | Chrome    | Linux             | Español
 27   | Basico           | Cripto             | Safari    | Windows           | Ingles
-
-Nota: Si tienes PICT instalado, ejecuta: pict model.txt

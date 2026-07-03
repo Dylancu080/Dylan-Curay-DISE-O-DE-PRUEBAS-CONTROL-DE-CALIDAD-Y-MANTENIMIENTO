@@ -1,16 +1,13 @@
 {
   "name": "pruebas",
   "version": "1.0.0",
-  "description": "Testing Avanzado - Módulo 1 y Framework Híbrido",
+  "description": "Proyecto final - Diseno de pruebas y control de calidad",
   "main": "index.js",
   "scripts": {
     "test": "jasmine",
     "test:advanced": "jasmine spec/busquedaBinaria.advanced.spec.js",
-    "test:all": "jasmine",
     "mutation": "stryker run"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
