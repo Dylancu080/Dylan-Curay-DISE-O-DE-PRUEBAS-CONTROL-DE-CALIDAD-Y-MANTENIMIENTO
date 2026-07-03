@@ -17,6 +17,6 @@
     "@stryker-mutator/core": "^8.0.0",
     "@stryker-mutator/jasmine-runner": "^8.0.0",
     "fast-check": "^3.19.0",
-    "jasmine": "^6.2.0"
+    "jasmine": "^5.1.0"
   }
 }
